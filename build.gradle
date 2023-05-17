@@ -1,19 +1,56 @@
 plugins {
-    id 'java'
+    id 'org.springframework.boot' version "$springBootVersion" apply false
+    id 'io.spring.dependency-management' version "$springDependencyManagerVersion" apply false
 }
 
-group = 'com.ilkinmehdiyev'
-version = '1.0-SNAPSHOT'
+def javaProjects = [
+        project(':ms-gateway')
 
-repositories {
-    mavenCentral()
+]
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+
+    def hash = 'git rev-parse --short HEAD'.execute().text.trim()
+    version = "$projectVersion.$hash"
+
+    dependencies {
+        implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+        implementation "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+        implementation "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+
+        compileOnly "io.springfox:springfox-boot-starter:${springfoxStarterVersion}"
+        compileOnly "io.springfox:springfox-data-rest:${springfoxStarterVersion}"
+        compileOnly "io.springfox:springfox-bean-validators:${springfoxStarterVersion}"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
+subprojects {
 
-test {
-    useJUnitPlatform()
+    sourceCompatibility = jdk_version
+    targetCompatibility = jdk_version
+
+    apply plugin: 'pmd'
+    apply plugin: 'checkstyle'
+
+    pmd {
+        toolVersion = '6.21.0'
+        ruleSets = []
+        ignoreFailures = false
+        ruleSetFiles = files("${rootProject.projectDir}/qa/pmd.xml")
+    }
+
+    checkstyle {
+        toolVersion = '8.15'
+        configFile = file("${rootProject.projectDir}/qa/checkstyle.xml")
+        ignoreFailures = false
+    }
 }

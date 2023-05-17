@@ -1,1 +1,3 @@
 rootProject.name = 'parcel_delivery'
+include 'ms-gateway'
+
