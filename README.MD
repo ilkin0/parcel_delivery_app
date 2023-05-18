@@ -9,6 +9,11 @@ As a microservices application tech stack is:  Java 17, Spring cloud, Docker, et
     - [x] Empty microservices project.
     - [x] Github mono-repository.
 - [x] Plan simple architecture based on task inputs.
-- [ ] Start for user management
-  - [ ] Spring cloud gateway implementation.
-  - [ ] Dockerize service.
+- [x] Implement ms-gateway.
+- [ ] Start for user management.
+  - [x] Implement JwtAuthFilter.
+  - [x] Implement Spring security.
+  - [ ] Implement User signup.
+  - [ ] Implement User sign-in.
+  - [ ] Implement ms-gateway connection.
+-[ ] Docker all services.
