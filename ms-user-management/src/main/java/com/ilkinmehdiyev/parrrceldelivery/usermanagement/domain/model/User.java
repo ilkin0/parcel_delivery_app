@@ -3,6 +3,7 @@ package com.ilkinmehdiyev.parrrceldelivery.usermanagement.domain.model;
 import com.ilkinmehdiyev.parrrceldelivery.usermanagement.constant.UserConstant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -26,27 +27,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = UserConstant.TABLE_NAME)
 public class User implements UserDetails {
 
-  @Id @GeneratedValue private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  private String password;
+    private String password;
 
-  private String name;
+    private String name;
 
-  private String username;
+    private String username;
 
-  private boolean accountNonExpired;
+    private boolean accountNonExpired;
 
-  private boolean accountNonLocked;
+    private boolean accountNonLocked;
 
-  private boolean credentialsNonExpired;
+    private boolean credentialsNonExpired;
 
-  private boolean enabled;
+    private boolean enabled;
 
-  @ManyToMany
-  @JoinTable(
-      name = "user_roles",
-      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-  @ToString.Exclude
-  private Set<Role> authorities = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @ToString.Exclude
+    private Set<Role> authorities = new HashSet<>();
 }

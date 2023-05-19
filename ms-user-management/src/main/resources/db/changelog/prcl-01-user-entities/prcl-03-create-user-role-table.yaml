@@ -8,14 +8,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: user_id
-                  type: bigint
+                  type: int
                   constraints:
                     primaryKey: true
                     primaryKeyName: user_role_pk
                     nullable: false
               - column:
                   name: role_id
-                  type: bigint
+                  type: int
                   constraints:
                     primaryKey: true
                     primaryKeyName: user_role_pk
