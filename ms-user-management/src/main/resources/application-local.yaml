@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/parcel_delivery_db
+    username: username
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: false
+  liquibase:
+    enabled: true
+
+application:
+  security:
+    jwt:
+      secret-key: 482B4D6251655468576D5A7134743777397A24432646294A404E635266556A58
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
