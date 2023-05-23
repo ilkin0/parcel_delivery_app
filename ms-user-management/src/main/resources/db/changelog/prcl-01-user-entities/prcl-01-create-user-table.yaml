@@ -41,3 +41,8 @@ databaseChangeLog:
               - column:
                   name: enabled
                   type: BOOLEAN
+              - column:
+                  name: role_id
+                  type: int
+                  constraints:
+                    nullable: false

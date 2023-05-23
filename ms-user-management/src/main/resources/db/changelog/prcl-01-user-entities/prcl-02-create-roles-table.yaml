@@ -15,7 +15,7 @@ databaseChangeLog:
                     primaryKeyName: role_pk
                     nullable: false
               - column:
-                  name: role
+                  name: name
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
