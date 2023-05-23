@@ -8,14 +8,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: int
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     primaryKeyName: role_pk
                     nullable: false
               - column:
-                  name: role
+                  name: name
                   type: VARCHAR(50)
                   constraints:
                     nullable: false

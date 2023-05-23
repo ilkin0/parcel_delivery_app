@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: int
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -42,7 +42,7 @@ databaseChangeLog:
                   name: enabled
                   type: BOOLEAN
               - column:
-                  name: creation_date
-                  type: datetime
-        - sql:
-            sql: "ALTER TABLE users AUTO_INCREMENT=1;"
+                  name: role_id
+                  type: int
+                  constraints:
+                    nullable: false

@@ -2,18 +2,28 @@
 
 This is a simple parcel delivery app.
 
-As a microservices application tech stack is:  Java 17, Spring cloud, Docker, etc.  
+As a microservices application tech stack is:  Java 17, Spring cloud, Docker, etc.
 
-### TODO
+## TODO
+
 - [x] Project initialziation.
     - [x] Empty microservices project.
     - [x] Github mono-repository.
 - [x] Plan simple architecture based on task inputs.
 - [x] Implement ms-gateway.
-- [ ] Start for user management.
-  - [x] Implement JwtAuthFilter.
-  - [x] Implement Spring security.
-  - [ ] Implement User signup.
-  - [ ] Implement User sign-in.
-  - [ ] Implement ms-gateway connection.
+    - [x] Accept all requests.
+    - [x] Check if URI is in SECURED or not.
+    - [x] If SECURED get JWT token from 'Authorization' header.
+    - [x] If Header is missing or not valid return UNAUTHORIZED.
+    - [ ] If Token is valid communicate with ms-auth to get credentials(userId and role) of user based on JWT token
+    - [ ] Add 2 new header [**_userId_**, **_role_**] to Request.
+    - [ ] Dynamic forward muted request(new 2 headers added) to destinations.
+- [ ] Implement ms-auth.
+    - [x] Implement introspecting API.
+    - [ ] Get user email from JWT token, communicate with ms-user to get user credentials by userEmail
+    - [ ] If requested JWT is valid, return requested user data (userId, role)
+- [ ] Implement user management.
+    - [x] Implement Spring security.
+    - [ ] Implement User signup.
+    - [ ] Implement User sign-in.
 -[ ] Docker all services.
