@@ -2,4 +2,5 @@ rootProject.name = 'parcel_delivery'
 include 'ms-gateway'
 include 'ms-user-management'
 include 'ms-authentication'
+include 'ms-order'
 
