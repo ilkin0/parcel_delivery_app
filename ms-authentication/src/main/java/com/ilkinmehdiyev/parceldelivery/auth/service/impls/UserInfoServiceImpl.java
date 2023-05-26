@@ -2,6 +2,8 @@ package com.ilkinmehdiyev.parceldelivery.auth.service.impls;
 
 import com.ilkinmehdiyev.parceldelivery.auth.domain.dto.IntrospectResponse;
 import com.ilkinmehdiyev.parceldelivery.auth.service.UserInfoService;
+import io.jsonwebtoken.Claims;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
-  @Value("${services.user.base")
+  @Value("${services.user.base}")
   private String userServiceApiBaseUrl;
 
   @Value("${services.user.searchUserApi}")
@@ -45,6 +47,10 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   private String getEmailFromToken(String token) {
-    return jwtService.parseToken(token).getSubject();
+    Claims claims = jwtService.parseToken(token);
+    if (Objects.nonNull(claims) && Objects.nonNull(claims.get("username"))) {
+      return claims.get("username").toString();
+    }
+    return null;
   }
 }

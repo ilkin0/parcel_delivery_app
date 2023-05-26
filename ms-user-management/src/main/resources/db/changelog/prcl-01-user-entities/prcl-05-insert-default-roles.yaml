@@ -9,9 +9,15 @@ databaseChangeLog:
               - column:
                   name: name
                   value: USER
+        - insert:
+            tableName: roles
+            columns:
               - column:
                   name: name
                   value: ADMIN
+        - insert:
+            tableName: roles
+            columns:
               - column:
                   name: name
                   value: COURIER

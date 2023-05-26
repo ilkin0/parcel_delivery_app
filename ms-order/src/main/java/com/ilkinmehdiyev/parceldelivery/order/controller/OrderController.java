@@ -26,7 +26,7 @@ public class OrderController {
   @PostMapping
   public ResponseEntity<ResponseTemplate<CreateOrderResponse>> createOrder(
       @RequestBody @Validated CreateOrderRequest orderRequest) {
-    log.info("Statrting Create Order request...");
+    log.info("Starting Create Order request...");
     CreateOrderResponse response = orderService.createOrder(orderRequest);
 
     return new ResponseEntity<>(

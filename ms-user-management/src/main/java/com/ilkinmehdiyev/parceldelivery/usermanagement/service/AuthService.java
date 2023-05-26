@@ -5,6 +5,7 @@ import com.ilkinmehdiyev.parceldelivery.usermanagement.domain.dto.TokenRefreshRe
 import com.ilkinmehdiyev.parceldelivery.usermanagement.domain.dto.request.SignInRequestDto;
 
 public interface AuthService {
-    TokenRefreshResponseDto singInUser(SignInRequestDto requestDto);
-    TokenRefreshResponseDto refreshAccessToken(RefreshTokenDto refreshTokenDto);
+  TokenRefreshResponseDto singInUser(SignInRequestDto requestDto);
+
+  TokenRefreshResponseDto refreshAccessToken(RefreshTokenDto refreshTokenDto);
 }

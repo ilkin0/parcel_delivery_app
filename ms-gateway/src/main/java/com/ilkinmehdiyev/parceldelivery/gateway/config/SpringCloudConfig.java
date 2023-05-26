@@ -1,6 +1,7 @@
 package com.ilkinmehdiyev.parceldelivery.gateway.config;
 
 import static com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants.API_V1;
+import static com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants.ORDERS_SERVICE_URI;
 import static com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants.ROOT_DOMAIN;
 
 import com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants;
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringCloudConfig {
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  //  private final AuthFilter authFilter;
 
   @Bean
   public RouteLocator gatewayRoutes(RouteLocatorBuilder routeLocatorBuilder) {
@@ -34,6 +36,9 @@ public class SpringCloudConfig {
             ConfigurationConstants.USER_MANAGEMENT_SERVICE_ID,
             getRoute(
                 ConfigurationConstants.USER_MANAGEMENT_SERVICE_ROOT, ROOT_DOMAIN.concat(":8082")))
+        .route(
+            ConfigurationConstants.ORDER_SERVICE_ID,
+            getRoute(ConfigurationConstants.ORDERS_SERVICE_ROOT, ORDERS_SERVICE_URI))
         //        .route("order-service", r -> r.path("/order/**").uri(ROOT_DOMAIN.concat(":8082")))
         //        .route(
         //            "go-test-server",

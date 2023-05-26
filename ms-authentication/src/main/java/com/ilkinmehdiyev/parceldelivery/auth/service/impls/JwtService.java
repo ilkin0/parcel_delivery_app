@@ -32,7 +32,8 @@ public class JwtService {
   }
 
   public Claims parseToken(String token) {
-    return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    String bearerToken = getBearerToken(token);
+    return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(bearerToken).getBody();
   }
 
   //    public String issueToken(Authentication authentication, Duration duration) {
@@ -66,4 +67,8 @@ public class JwtService {
   //        });
   //        return jwtBuilder;
   //    }
+
+  private String getBearerToken(String token) {
+    return token.startsWith("Bearer ") ? token.substring("Bearer ".length()) : token;
+  }
 }

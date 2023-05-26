@@ -7,6 +7,8 @@ import com.ilkinmehdiyev.parceldelivery.order.domain.model.Order;
 import com.ilkinmehdiyev.parceldelivery.order.domain.repository.OrderRepository;
 import com.ilkinmehdiyev.parceldelivery.order.mapper.OrderMapper;
 import com.ilkinmehdiyev.parceldelivery.order.service.OrderService;
+import com.ilkinmehdiyev.parceldelivery.order.utility.SessionUser;
+import com.ilkinmehdiyev.parceldelivery.order.utility.ThreadLocalStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,9 @@ public class OrderServiceImpl implements OrderService {
     order.setOrderStatus(OrderStatus.CREATED);
     Order savedOrder = saveOrder(order);
 
-    log.error("Created order.");
+    log.info("Order created: {}", savedOrder);
+    SessionUser sessionUser = ThreadLocalStorage.getSessionUser();
+    log.info("Current Session User: {}", sessionUser);
     return OrderMapper.INSTANCE.toCreateOrderResponse(savedOrder);
   }
 
