@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,4 +45,7 @@ public class Order extends Audit {
   @Column(name = OrderConstant.ORDER_STATUS)
   @Enumerated(EnumType.STRING)
   private OrderStatus orderStatus;
+
+  @Column(name = OrderConstant.DELIVERY_DATE)
+  private LocalDateTime deliveryDate;
 }

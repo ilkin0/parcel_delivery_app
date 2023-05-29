@@ -59,11 +59,7 @@ public class JwtAuthenticationFilter implements GatewayFilter, Ordered {
       log.info("AUHT URI: {}", authServiceIntrospect);
       log.info("AUHT BASE: {}", authServiceBase);
 
-      WebClient webClient =
-          WebClient.builder()
-              //          .mutate()
-              .baseUrl(authServiceBase)
-              .build();
+      WebClient webClient = WebClient.builder().baseUrl(authServiceBase).build();
 
       return webClient
           .post()
@@ -89,11 +85,7 @@ public class JwtAuthenticationFilter implements GatewayFilter, Ordered {
                 return chain.filter(modifiedExchange);
               })
           .onErrorResume(
-              ex ->
-                  onError(
-                      exchange,
-                      "Failed to authenticate token: \n".concat(ex.getMessage()),
-                      HttpStatus.UNAUTHORIZED));
+              ex -> onError(exchange, "Failed to authenticate token.", HttpStatus.UNAUTHORIZED));
     }
 
     //      processCredentials(exchange, token)

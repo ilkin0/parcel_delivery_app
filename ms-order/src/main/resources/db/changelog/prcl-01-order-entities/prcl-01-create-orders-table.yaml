@@ -37,3 +37,6 @@ databaseChangeLog:
               - column:
                   name: order_status
                   type: varchar(20)
+              - column:
+                  name: delivery_date
+                  type: timestamp

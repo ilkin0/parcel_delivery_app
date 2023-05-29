@@ -22,6 +22,8 @@ public class SessionUserInterceptor implements HandlerInterceptor {
     log.info("Current role : {}", role);
     log.info("Current Thread Id : {}", Thread.currentThread().getId());
     log.info("Current customUser object : {}", sessionUser);
+
+    ThreadLocalStorage.setSessionUser(sessionUser);
     return true;
   }
 

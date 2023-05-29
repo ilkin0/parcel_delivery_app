@@ -4,6 +4,7 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 
 import com.ilkinmehdiyev.parceldelivery.order.domain.dto.request.CreateOrderRequest;
 import com.ilkinmehdiyev.parceldelivery.order.domain.dto.response.CreateOrderResponse;
+import com.ilkinmehdiyev.parceldelivery.order.domain.dto.response.OrderDetailsResponse;
 import com.ilkinmehdiyev.parceldelivery.order.domain.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -16,4 +17,6 @@ public interface OrderMapper {
   Order toOrder(CreateOrderRequest createOrderRequest);
 
   CreateOrderResponse toCreateOrderResponse(Order order);
+
+  OrderDetailsResponse toOrderDetailsResponse(Order order);
 }

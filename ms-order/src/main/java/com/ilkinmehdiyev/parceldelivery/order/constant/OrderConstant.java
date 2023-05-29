@@ -7,4 +7,5 @@ public interface OrderConstant {
   String COURIER_ID = "courier_id";
   String DESTINATION = "destination";
   String ORDER_STATUS = "order_status";
+  String DELIVERY_DATE = "delivery_date";
 }

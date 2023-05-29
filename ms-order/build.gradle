@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.0'
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
     runtimeOnly 'org.postgresql:postgresql'
