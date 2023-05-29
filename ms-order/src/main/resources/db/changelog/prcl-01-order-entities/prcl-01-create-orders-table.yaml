@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20230524-01
+      author: ilkinmehdiyev
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: orderId
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: order_pk
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: boolean
+              - column:
+                  name: created_date
+                  type: timestamp
+              - column:
+                  name: updated_date
+                  type: timestamp
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: courier_id
+                  type: int
+              - column:
+                  name: destination
+                  type: varchar(155)
+              - column:
+                  name: order_status
+                  type: varchar(20)
+              - column:
+                  name: delivery_date
+                  type: timestamp

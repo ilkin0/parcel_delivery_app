@@ -19,4 +19,6 @@ management:
     gateway:
       enabled: true
 security:
-  auth-service-api: http://localhost:8081/auth/v1/introspect
+  auth:
+    url: http://localhost:8081
+    introspect-api: /api/v1/auth/introspect

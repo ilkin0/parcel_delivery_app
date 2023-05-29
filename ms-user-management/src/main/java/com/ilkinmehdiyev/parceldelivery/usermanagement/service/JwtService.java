@@ -12,7 +12,7 @@ import java.security.Key;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,9 +58,19 @@ public class JwtService {
   }
 
   private void addClaims(Authentication authentication, JwtBuilder jwtBuilder) {
-    List<String> authorities =
-        authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-    authorities.forEach(authority -> jwtBuilder.setClaims(Map.of("authority", authority)));
+    Map<String, String> claimsMap = new HashMap<>();
+
+    addAuthoritiesClaims(claimsMap, authentication, jwtBuilder);
+    claimsMap.put("username", authentication.getName());
+
+    jwtBuilder.setClaims(claimsMap);
+  }
+
+  private void addAuthoritiesClaims(
+      Map<String, String> claimsMap, Authentication authentication, JwtBuilder jwtBuilder) {
+    authentication.getAuthorities().stream()
+        .map(GrantedAuthority::getAuthority)
+        .forEach(auth -> claimsMap.put("authority", auth));
   }
 
   //    private JwtBuilder addClaimsSets(JwtBuilder jwtBuilder, Authentication authentication) {

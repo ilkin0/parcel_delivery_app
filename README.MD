@@ -27,3 +27,7 @@ As a microservices application tech stack is:  Java 17, Spring cloud, Docker, et
     - [ ] Implement User signup.
     - [ ] Implement User sign-in.
 -[ ] Docker all services.
+
+## Bugs
+
+- [ ] UserRole have to be oneToOne with role_id instead of creating a new Role every time for 'Sign-up user' API.
