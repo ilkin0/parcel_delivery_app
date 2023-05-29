@@ -10,7 +10,7 @@ import com.ilkinmehdiyev.parceldelivery.order.domain.dto.response.OrderDetailsRe
 import com.ilkinmehdiyev.parceldelivery.order.domain.model.Order;
 
 public interface OrderService {
-//  CreateOrderResponse createOrder(CreateOrderRequest orderRequest);
+  CreateOrderResponse createOrder(CreateOrderRequest orderRequest);
 
   Order saveOrder(Order order);
 

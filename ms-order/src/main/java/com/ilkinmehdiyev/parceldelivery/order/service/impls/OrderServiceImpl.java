@@ -11,8 +11,8 @@ import com.ilkinmehdiyev.parceldelivery.order.domain.enums.OrderStatus;
 import com.ilkinmehdiyev.parceldelivery.order.domain.enums.UserRole;
 import com.ilkinmehdiyev.parceldelivery.order.domain.model.Order;
 import com.ilkinmehdiyev.parceldelivery.order.domain.repository.OrderRepository;
-import com.ilkinmehdiyev.parceldelivery.order.mapper.OrderMapper;
 import com.ilkinmehdiyev.parceldelivery.order.service.OrderService;
+import com.ilkinmehdiyev.parceldelivery.order.utility.EntityUtility;
 import com.ilkinmehdiyev.parceldelivery.order.utility.SessionUser;
 import com.ilkinmehdiyev.parceldelivery.order.utility.ThreadLocalStorage;
 import java.util.List;
@@ -26,31 +26,30 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
   private final OrderRepository orderRepository;
-  private final OrderMapper orderMapper;
 
-//  @Override
-//  public CreateOrderResponse createOrder(CreateOrderRequest orderRequest) {
-//    log.info("Starting to create a new parcel delivery order...");
-//
-//    SessionUser sessionUser = ThreadLocalStorage.getSessionUser();
-//    log.info("Current Session User: {}", sessionUser);
-//
-//    Order order =
-//        Order.builder()
-//            .userId(orderRequest.userId())
-//            .destination(orderRequest.destination())
-//            .orderStatus(OrderStatus.CREATED)
-//            .build();
-//
-//    Order savedOrder = saveOrder(order);
-//    log.info("Order created: {}", savedOrder);
-//
-//    return new CreateOrderResponse(
-//        savedOrder.getUserId(),
-//        savedOrder.getCourierId(),
-//        savedOrder.getDestination(),
-//        savedOrder.getOrderStatus());
-//  }
+  @Override
+  public CreateOrderResponse createOrder(CreateOrderRequest orderRequest) {
+    log.info("Starting to create a new parcel delivery order...");
+
+    SessionUser sessionUser = ThreadLocalStorage.getSessionUser();
+    log.info("Current Session User: {}", sessionUser);
+
+    Order order =
+        Order.builder()
+            .userId(orderRequest.userId())
+            .destination(orderRequest.destination())
+            .orderStatus(OrderStatus.CREATED)
+            .build();
+
+    Order savedOrder = saveOrder(order);
+    log.info("Order created: {}", savedOrder);
+
+    return new CreateOrderResponse(
+        savedOrder.getUserId(),
+        savedOrder.getCourierId(),
+        savedOrder.getDestination(),
+        savedOrder.getOrderStatus());
+  }
 
   @Override
   public Order saveOrder(Order order) {
@@ -70,23 +69,21 @@ public class OrderServiceImpl implements OrderService {
         .findById(orderId)
         .orElseThrow(
             () -> {
-              log.error("Cannot find Order with {} id.", orderId);
+              log.error("Cannot find Order with {} orderId.", orderId);
               return new IllegalArgumentException();
             });
   }
 
   @Override
   public OrderDetailsResponse getOrderDetailsById(Integer orderId) {
-
     validateUserForOrderDetails();
 
-    log.info("Fetching order details by {} id.", orderId);
+    log.info("Fetching order details by {} orderId.", orderId);
 
     Order orderById = getOrderById(orderId);
     log.info("Found order: {}", orderById);
 
-    //    return OrderMapper.INSTANCE.toOrderDetailsResponse(orderById);
-    return getOrderDetailsResponse(orderById);
+    return EntityUtility.getOrderDetailsResponse(orderById);
   }
 
   @Override
@@ -97,19 +94,23 @@ public class OrderServiceImpl implements OrderService {
     Order orderById = getOrderById(orderId);
     log.info("Found Order: {}", orderById);
 
-    if (!OrderStatus.CREATED.equals(orderById.getOrderStatus())) {
-      log.error("Order in {} status, destination cannot be changed.", orderById.getOrderStatus());
-      throw new IllegalArgumentException();
-    }
+    validateOrderCreateStatus(orderById);
 
     orderById.setDestination(orderById.getDestination());
     Order savedOrder = orderRepository.save(orderById);
     return new OrderDestinationResponse(savedOrder.getDestination());
   }
 
+  private static void validateOrderCreateStatus(Order orderById) {
+    if (!OrderStatus.CREATED.equals(orderById.getOrderStatus())) {
+      log.error("Order in {} status, destination cannot be changed.", orderById.getOrderStatus());
+      throw new IllegalArgumentException();
+    }
+  }
+
   @Override
   public OrderCancelResponse deleteById(Integer orderId) {
-    log.info("Starting to cancel Order with {} id.", orderId);
+    log.info("Starting to cancel Order with {} orderId.", orderId);
     validateUserForCancelOrder();
 
     Integer updateCount = orderRepository.deleteOrderById(orderId);
@@ -130,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
 
     List<OrderDetailsResponse> responseList =
         allByUserId.stream()
-            .map(OrderServiceImpl::getOrderDetailsResponse)
+            .map(EntityUtility::getOrderDetailsResponse)
             .collect(Collectors.toList());
 
     return new GetAllOrderDetailsResponse(responseList);
@@ -147,20 +148,12 @@ public class OrderServiceImpl implements OrderService {
   private void validateUserForOrderDetails() {
     String role = ThreadLocalStorage.getSessionUser().getRole();
     Integer userId = ThreadLocalStorage.getSessionUser().getUserId();
-    log.info("Validating user with {} id.", userId);
+    log.info("Validating user with {} orderId.", userId);
 
     if (!(UserRole.USER.toString().equalsIgnoreCase(role)
         || UserRole.ADMIN.toString().equalsIgnoreCase(role))) {
       log.error("Only User/Admin can get details of Order");
       throw new IllegalStateException("Only User/Admin can get details of Order");
     }
-  }
-
-  private static OrderDetailsResponse getOrderDetailsResponse(Order orderById) {
-    return new OrderDetailsResponse(
-        orderById.getCourierId(),
-        orderById.getDestination(),
-        orderById.getOrderStatus(),
-        orderById.getDeliveryDate());
   }
 }

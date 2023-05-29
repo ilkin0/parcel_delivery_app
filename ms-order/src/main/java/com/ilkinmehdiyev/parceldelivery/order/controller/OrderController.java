@@ -31,19 +31,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
   private final OrderService orderService;
-  //  private final
-//
-//  @PostMapping
-//  public ResponseEntity<ResponseTemplate<CreateOrderResponse>> createOrder(
-//      @RequestBody @Validated CreateOrderRequest orderRequest) {
-//    log.info("Starting Create Order request...");
-//    CreateOrderResponse response = orderService.createOrder(orderRequest);
-//
-//    return new ResponseEntity<>(
-//        ResponseUtility.generateResponse(
-//            response, HttpStatus.CREATED.value(), "Order successfully created"),
-//        HttpStatus.CREATED);
-//  }
+
+  @PostMapping
+  public ResponseEntity<ResponseTemplate<CreateOrderResponse>> createOrder(
+      @RequestBody @Validated CreateOrderRequest orderRequest) {
+    log.info("Starting Create Order request...");
+    CreateOrderResponse response = orderService.createOrder(orderRequest);
+
+    return new ResponseEntity<>(
+        ResponseUtility.generateResponse(
+            response, HttpStatus.CREATED.value(), "Order successfully created"),
+        HttpStatus.CREATED);
+  }
 
   @GetMapping("/{orderId}")
   public ResponseEntity<ResponseTemplate<OrderDetailsResponse>> getOrderDetails(

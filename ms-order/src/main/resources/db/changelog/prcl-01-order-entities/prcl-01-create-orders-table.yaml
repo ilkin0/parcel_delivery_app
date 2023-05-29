@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: orders
             columns:
               - column:
-                  name: id
+                  name: orderId
                   type: int
                   autoIncrement: true
                   constraints:
