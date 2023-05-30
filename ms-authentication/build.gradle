@@ -1,16 +1,16 @@
-plugins {
-    id 'org.springframework.boot'
-    id 'io.spring.dependency-management'
-    id 'java'
-}
+//plugins {
+//    id 'org.springframework.boot'
+//    id 'io.spring.dependency-management'
+//    id 'java'
+//}
 
 group = 'com.ilkinmehdiyev.parceldelivery.ms-authentication'
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//}
 
 repositories {
     mavenCentral()

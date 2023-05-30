@@ -1,6 +1,25 @@
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.1.0")
+//        classpath("io.spring.gradle:dependency-management-plugin:1.1.0")
+//    }
+//}
+
 plugins {
-    id 'org.springframework.boot' version "$springBootVersion" apply false
-    id 'io.spring.dependency-management' version "$springDependencyManagerVersion" apply false
+//    id 'org.springframework.boot' version "3.1.0" apply false
+//    id 'io.spring.dependency-management' version "1.1.0" apply false
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2022.0.2")
 }
 
 def javaProjects = [
@@ -9,17 +28,24 @@ def javaProjects = [
 ]
 
 allprojects {
-    repositories {
-        mavenCentral()
-    }
-
-    apply plugin: 'java'
-
     def hash = 'git rev-parse --short HEAD'.execute().text.trim()
     version = "$projectVersion.$hash"
+}
+
+subprojects {
+//
+//    apply plugin: "java"
+//    apply plugin: "org.springframework.boot"
+//    apply plugin: "io.spring.dependency-management"
+
+//    configurations {
+//        compileOnly {
+//            extendsFrom annotationProcessor
+//        }
+//    }
 
     dependencies {
-        implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+docker        implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
         implementation "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
         implementation "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
 
@@ -31,26 +57,7 @@ allprojects {
     test {
         useJUnitPlatform()
     }
-}
-
-subprojects {
 
     sourceCompatibility = jdk_version
     targetCompatibility = jdk_version
-
-//    apply plugin: 'pmd'
-//    apply plugin: 'checkstyle'
-//
-//    pmd {
-//        toolVersion = '6.21.0'
-//        ruleSets = []
-//        ignoreFailures = false
-//        ruleSetFiles = files("${rootProject.projectDir}/qa/pmd.xml")
-//    }
-//
-//    checkstyle {
-//        toolVersion = '8.15'
-//        configFile = file("${rootProject.projectDir}/qa/checkstyle.xml")
-//        ignoreFailures = false
-//    }
 }

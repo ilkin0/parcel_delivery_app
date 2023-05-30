@@ -1,0 +1,107 @@
+version: '3.8'
+services:
+
+  db:
+    image: postgres
+    restart: always
+    user: postgres
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=parcel_delivery_db
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-gateway:
+    build:
+      context: ./ms-gateway
+      dockerfile: Dockerfile
+    image: api-gateway:latest
+    networks:
+      - pda_network
+    ports:
+      - 8080:8080
+    volumes:
+      - api-gateway-log:/logs
+    environment:
+      PROFILE: prod
+    depends_on:
+      - db
+  #      CONFIG_SERVER_URL: http://config-server:8888
+  #      EUREKA_SERVER_URL: http://service-discovery:8761/eureka/
+  #      SERVER_PORT: 8080
+  #    depends_on:
+  #      - service-discovery
+
+  ms-auth:
+    build:
+      context: ./ms-auth
+      dockerfile: Dockerfile
+    image: ms-auth:latest
+    networks:
+      - pda_network
+    volumes:
+      - ms-auth-log:/logs
+    environment:
+      PROFILE: prod
+    ports:
+      - 8081:8081
+    depends_on:
+      - api-gateway
+
+  ms-user:
+    build:
+      context: ./ms-user-management
+      dockerfile: Dockerfile
+    image: ms-user:latest
+    networks:
+      - pda_network
+    volumes:
+      - ms-user-log:/logs
+    environment:
+      PROFILE: prod
+    ports:
+      - 8082:8082
+    depends_on:
+      - api-gateway
+
+
+  ms-order:
+    build:
+      context: ./ms-order
+      dockerfile: Dockerfile
+    image: ms-order:latest
+    networks:
+      - pda_network
+    volumes:
+      - ms-order-log:/logs
+    environment:
+      PROFILE: prod
+    ports:
+      - 8083:8083
+    depends_on:
+      - api-gateway
+
+
+
+networks:
+  pda_network:
+
+volumes:
+  db-data:
+  api-gateway-log:
+  ms-auth-log:
+  ms-user-log:
+  ms-order-log:
+
+secrets:
+  db-password:
+    file: db/password.txt
