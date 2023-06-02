@@ -12,28 +12,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  String[] ALLOWED_URLS = new String[] {"/auth/introspect", "/auth/token", "/auth/validate"};
-
-  //  @Bean
-  //  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-  //    return httpSecurity
-  //        .authorizeHttpRequests(
-  //            requestMatcherRegistry ->
-  //                requestMatcherRegistry.requestMatchers(ALLOWED_URLS).permitAll()
-  //            //                    .anyRequest()
-  //            //                    .authenticated()
-  //            )
-  //        .csrf(AbstractHttpConfigurer::disable)
-  //        .httpBasic(AbstractHttpConfigurer::disable)
-  //        .formLogin(AbstractHttpConfigurer::disable)
-  //        .build();
-  //  }
+  static final String[] ALLOWED_URLS = new String[] {"/api/v1/auth/introspect"};
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
             requestMatcherRegistry ->
-                requestMatcherRegistry.anyRequest().permitAll())
+                requestMatcherRegistry.requestMatchers(ALLOWED_URLS).permitAll()
+            //                    .anyRequest()
+            //                    .permitAll()
+            )
         .csrf(AbstractHttpConfigurer::disable)
         .httpBasic(AbstractHttpConfigurer::disable)
         .formLogin(AbstractHttpConfigurer::disable);

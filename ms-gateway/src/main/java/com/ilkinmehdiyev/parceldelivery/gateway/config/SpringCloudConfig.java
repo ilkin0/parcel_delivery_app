@@ -1,14 +1,13 @@
 package com.ilkinmehdiyev.parceldelivery.gateway.config;
 
 import static com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants.API_V1;
-import static com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants.ORDERS_SERVICE_URI;
-import static com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants.ROOT_DOMAIN;
 
 import com.ilkinmehdiyev.parceldelivery.gateway.constant.ConfigurationConstants;
 import com.ilkinmehdiyev.parceldelivery.gateway.security.filter.JwtAuthenticationFilter;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.Buildable;
@@ -23,7 +22,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringCloudConfig {
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  //  private final AuthFilter authFilter;
+
+  @Value("${ms.user-mng.root}")
+  private String msUserMngRoot;
+
+  @Value("${ms.auth.root}")
+  private String msAuthRoot;
+
+  @Value("${ms.order.root}")
+  private String msOrderRoot;
 
   @Bean
   public RouteLocator gatewayRoutes(RouteLocatorBuilder routeLocatorBuilder) {
@@ -31,14 +38,13 @@ public class SpringCloudConfig {
         .routes()
         .route(
             ConfigurationConstants.AUTH_SERVICE_ID,
-            getRoute(ConfigurationConstants.AUTH_SERVICE_ROOT, ROOT_DOMAIN.concat(":8081")))
+            getRoute(ConfigurationConstants.AUTH_SERVICE_ROOT, msAuthRoot))
         .route(
             ConfigurationConstants.USER_MANAGEMENT_SERVICE_ID,
-            getRoute(
-                ConfigurationConstants.USER_MANAGEMENT_SERVICE_ROOT, ROOT_DOMAIN.concat(":8082")))
+            getRoute(ConfigurationConstants.USER_MANAGEMENT_SERVICE_ROOT, msUserMngRoot))
         .route(
             ConfigurationConstants.ORDER_SERVICE_ID,
-            getRoute(ConfigurationConstants.ORDERS_SERVICE_ROOT, ORDERS_SERVICE_URI))
+            getRoute(ConfigurationConstants.ORDERS_SERVICE_ROOT, msOrderRoot))
         //        .route("order-service", r -> r.path("/order/**").uri(ROOT_DOMAIN.concat(":8082")))
         //        .route(
         //            "go-test-server",
