@@ -3,3 +3,6 @@ server:
 spring:
   application:
     name: ms-authentication
+  profiles:
+    active:
+      - prod

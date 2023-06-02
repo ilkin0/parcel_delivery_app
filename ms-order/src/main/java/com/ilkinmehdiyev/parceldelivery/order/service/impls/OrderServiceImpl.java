@@ -17,6 +17,8 @@ import com.ilkinmehdiyev.parceldelivery.order.utility.SessionUser;
 import com.ilkinmehdiyev.parceldelivery.order.utility.ThreadLocalStorage;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -70,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
         .orElseThrow(
             () -> {
               log.error("Cannot find Order with {} orderId.", orderId);
-              return new IllegalArgumentException();
+              return new IllegalArgumentException("Cannot find Order with orderId.");
             });
   }
 
@@ -96,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
 
     validateOrderCreateStatus(orderById);
 
-    orderById.setDestination(orderById.getDestination());
+    orderById.setDestination(request.newDestination());
     Order savedOrder = orderRepository.save(orderById);
     return new OrderDestinationResponse(savedOrder.getDestination());
   }
@@ -109,6 +111,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
+  @Transactional
   public OrderCancelResponse deleteById(Integer orderId) {
     log.info("Starting to cancel Order with {} orderId.", orderId);
     validateUserForCancelOrder();

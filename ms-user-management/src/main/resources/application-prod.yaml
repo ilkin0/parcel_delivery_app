@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: false
+  liquibase:
+    enabled: true
+
+security:
+  #  jwt:
+  secretKey: 423F4528482B4D6251655468576D597133743677397A24432646294A404E635266556A586E327234753778214125442A472D4B6150645367566B597033733676
+  expiration: 86400000 # a day
+  refresh-token:
+    expiration: 604800000 # 7 days

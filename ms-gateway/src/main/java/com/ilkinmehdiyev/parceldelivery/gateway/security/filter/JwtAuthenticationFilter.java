@@ -56,9 +56,6 @@ public class JwtAuthenticationFilter implements GatewayFilter, Ordered {
             exchange, "Authorization header is missing in request", HttpStatus.UNAUTHORIZED);
       }
 
-      log.info("AUHT URI: {}", authServiceIntrospect);
-      log.info("AUHT BASE: {}", authServiceBase);
-
       WebClient webClient = WebClient.builder().baseUrl(authServiceBase).build();
 
       return webClient
@@ -70,6 +67,7 @@ public class JwtAuthenticationFilter implements GatewayFilter, Ordered {
           .flatMap(
               credentials -> {
                 log.info("Starting authentication");
+                log.info("Creds: {}", credentials);
                 // Set the custom 'userId' header in the request
                 ServerHttpRequest modifiedRequest =
                     exchange

@@ -22,3 +22,11 @@ security:
   auth:
     url: http://localhost:8081
     introspect-api: /api/v1/auth/introspect
+
+ms:
+  user-mng:
+    root: http://localhost:8082
+  auth:
+    root: http://localhost:8081
+  order:
+    root: http://localhost:8083

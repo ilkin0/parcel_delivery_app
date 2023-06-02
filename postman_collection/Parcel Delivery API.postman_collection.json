@@ -1,0 +1,234 @@
+{
+  "info": {
+    "_postman_id": "07edd64f-bdc9-449a-abc0-f432f8fc73ab",
+    "name": "Parcel Delivery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11472780"
+  },
+  "item": [
+    {
+      "name": "MS-ORDER",
+      "item": [
+        {
+          "name": "User",
+          "item": [
+            {
+              "name": "Create Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJhdXRob3JpdHkiOiJVU0VSIiwidXNlcm5hbWUiOiJqLmRvZUBnbWFpbC5jb20ifQ.ph8I-S3d1Y-ss-QyCYQCJM6MLTGcoojd1zj2_O-wc8yOdKJ7IxpdeXY4e7Aq3pao77sQDjFDjipZIKr5p-jPLA",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"userId\": 1,\r\n  \"destination\": \"test_69ca1a0d976c\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8080/orders",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Order Details By Id",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJhdXRob3JpdHkiOiJVU0VSIiwidXNlcm5hbWUiOiJqLmRvZUBnbWFpbC5jb20ifQ.ph8I-S3d1Y-ss-QyCYQCJM6MLTGcoojd1zj2_O-wc8yOdKJ7IxpdeXY4e7Aq3pao77sQDjFDjipZIKr5p-jPLA",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "localhost:8080/orders/2",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "orders",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Order Details By User",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJhdXRob3JpdHkiOiJVU0VSIiwidXNlcm5hbWUiOiJqLmRvZUBnbWFpbC5jb20ifQ.ph8I-S3d1Y-ss-QyCYQCJM6MLTGcoojd1zj2_O-wc8yOdKJ7IxpdeXY4e7Aq3pao77sQDjFDjipZIKr5p-jPLA",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "localhost:8080/orders",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Order Destination",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJhdXRob3JpdHkiOiJVU0VSIiwidXNlcm5hbWUiOiJqLmRvZUBnbWFpbC5jb20ifQ.ph8I-S3d1Y-ss-QyCYQCJM6MLTGcoojd1zj2_O-wc8yOdKJ7IxpdeXY4e7Aq3pao77sQDjFDjipZIKr5p-jPLA",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"newDestination\": \"CA\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8080/orders/1",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "orders",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Order",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJhdXRob3JpdHkiOiJVU0VSIiwidXNlcm5hbWUiOiJqLmRvZUBnbWFpbC5jb20ifQ.ph8I-S3d1Y-ss-QyCYQCJM6MLTGcoojd1zj2_O-wc8yOdKJ7IxpdeXY4e7Aq3pao77sQDjFDjipZIKr5p-jPLA",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "localhost:8080/orders/2",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "orders",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "ADMIN",
+          "item": []
+        }
+      ]
+    },
+    {
+      "name": "MS-USER",
+      "item": [
+        {
+          "name": "User Sign in",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"j.doe@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/users/auth/sign-in",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users",
+                "auth",
+                "sign-in"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Jhon\",\r\n  \"username\": \"j.doe@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"USER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/users/auth/sign-up",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users",
+                "auth",
+                "sign-up"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

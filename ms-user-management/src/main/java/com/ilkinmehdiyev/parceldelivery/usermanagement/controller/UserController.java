@@ -21,9 +21,9 @@ public class UserController {
 
   @GetMapping("/search")
   public ResponseEntity<UserInfoResponse> searchUser(@RequestParam(name = "email") String email) {
-    log.info("Received request for finding user id and role for email {}", email);
+    log.info("Received request for fetching user's id and role for email {}", email);
     UserInfoResponse userInfoResponse = userService.searchUserEmail(email);
-    log.info("Completed request for finding user id and role for email {}", email);
+    log.info("Completed request for fetching user's id and role for email {}", email);
     return new ResponseEntity<>(userInfoResponse, HttpStatus.OK);
   }
 }

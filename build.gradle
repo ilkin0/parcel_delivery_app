@@ -3,11 +3,6 @@ plugins {
     id 'io.spring.dependency-management' version "$springDependencyManagerVersion" apply false
 }
 
-def javaProjects = [
-        project(':ms-gateway')
-
-]
-
 allprojects {
     repositories {
         mavenCentral()
@@ -37,6 +32,11 @@ subprojects {
 
     sourceCompatibility = jdk_version
     targetCompatibility = jdk_version
+
+    jar {
+        enabled = false
+    }
+
 
 //    apply plugin: 'pmd'
 //    apply plugin: 'checkstyle'
